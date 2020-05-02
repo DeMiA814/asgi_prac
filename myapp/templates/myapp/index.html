@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>asgi_prac</title>
+</head>
+<body>
+    <h1>asgi_prac</h1>
+    <button onclick="reset();">reset</button>
+    <h3>websocket</h3>
+    <button onclick="websocket();">送信</button>
+    <h3>http</h3>
+    <form method="get">
+        <button type="submit" name="sub" value="ping">送信</button>
+    </form>
+
+
+    <h2>result</h2>
+    <p id="result">{{ result }}</p>
+    <script>
+        var ws = new WebSocket('ws://localhost:8000');
+        var result = document.getElementById('result');
+        
+        function websocket(){
+            ws.onmessage = function(){
+                result.innerHTML = event.data;
+            }
+            ws.send("ping");
+        }
+
+        function reset(){
+            result.innerHTML = ""
+        }
+    </script>
+</body>
+</html>
