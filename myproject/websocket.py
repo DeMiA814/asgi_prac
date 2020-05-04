@@ -1,7 +1,4 @@
 async def websocket_application(scope, receive, send):
-    print(scope)
-    print(receive)
-    print(send)
     while True:
         event = await receive()
 
