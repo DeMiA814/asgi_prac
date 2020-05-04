@@ -1,37 +1,26 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>asgi_prac</title>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
 </head>
 <body>
-    <h1>asgi_prac</h1>
-    <button onclick="reset();">reset</button>
-    <h3>websocket</h3>
-    <button onclick="websocket();">送信</button>
-    <h3>http</h3>
-    <form method="get">
-        <button type="submit" name="sub" value="ping">送信</button>
-    </form>
+    What chat room would you like to enter?<br>
+    <input id="room-name-input" type="text" size="100"><br>
+    <input id="room-name-submit" type="button" value="Enter">
 
-
-    <h2>result</h2>
-    <p id="result">{{ result }}</p>
     <script>
-        var ws = new WebSocket('ws://localhost:8000');
-        var result = document.getElementById('result');
-        
-        function websocket(){
-            ws.onmessage = function(){
-                result.innerHTML = event.data;
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
             }
-            ws.send("ping");
-        }
+        };
 
-        function reset(){
-            result.innerHTML = ""
-        }
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
     </script>
 </body>
 </html>
